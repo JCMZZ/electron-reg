@@ -116,7 +116,7 @@ function startMain () {
 function startElectron () {
   var args = [
     '--inspect=5858',
-    path.join(__dirname, '../dist/electron/main.js')
+    path.join(__dirname, '../dist/electron/main.bundle.js')
   ]
 
   // detect yarn or npm and process commandline args accordingly
@@ -125,7 +125,6 @@ function startElectron () {
   } else if (process.env.npm_execpath.endsWith('npm-cli.js')) {
     args = args.concat(process.argv.slice(2))
   }
-
   electronProcess = spawn(electron, args)
   
   electronProcess.stdout.on('data', data => {

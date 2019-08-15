@@ -7,8 +7,18 @@ const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 
 const BabiliWebpackPlugin = require('babili-webpack-plugin')
+/**
+ * 将已存在的单个文件或整个目录复制到构建目录
+ */
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+/**
+ * 将 CSS 提取到单独的文件中
+ * 为每个包含 CSS 的 JS 文件创建一个 CSS 文件
+ */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+/**
+ * 简化HTML创建
+ */
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
@@ -129,7 +139,7 @@ let rendererConfig = {
   output: {
     filename: '[name].js',
     libraryTarget: 'commonjs2',
-    path: path.join(__dirname, '../dist/electron')
+    path: path.join(__dirname, '../dist/renderer')
   },
   resolve: {
     alias: {

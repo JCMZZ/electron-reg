@@ -5,12 +5,15 @@ process.env.BABEL_ENV = 'main'
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
-
+/**
+ * 一个Webpack插件为Babili -一个基于babel的缩小器
+ */
 const BabiliWebpackPlugin = require('babili-webpack-plugin')
 
 let mainConfig = {
   entry: {
-    main: path.join(__dirname, '../src/main/index.js')
+    main: path.join(__dirname, '../src/main/index.js'),
+    startup: path.join(__dirname, '../src/startup/index.js'),
   },
   externals: [
     ...Object.keys(dependencies || {})
@@ -33,7 +36,7 @@ let mainConfig = {
     __filename: process.env.NODE_ENV !== 'production'
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].bundle.js',
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, '../dist/electron')
   },
@@ -59,6 +62,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 /**
  * Adjust mainConfig for production settings
+ * 为生产设置调整mainConfig
  */
 if (process.env.NODE_ENV === 'production') {
   mainConfig.plugins.push(
