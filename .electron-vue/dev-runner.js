@@ -1,5 +1,4 @@
 'use strict'
-
 const chalk = require('chalk')
 const electron = require('electron')
 const path = require('path')
@@ -69,10 +68,10 @@ function startRenderer () {
           ctx.middleware.waitUntilValid(() => {
             resolve()
           })
-        }
+        },
+        historyApiFallback: true
       }
     )
-
     server.listen(9080)
   })
 }

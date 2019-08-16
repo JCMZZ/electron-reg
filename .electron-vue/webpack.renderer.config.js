@@ -139,11 +139,11 @@ let rendererConfig = {
   output: {
     filename: '[name].js',
     libraryTarget: 'commonjs2',
-    path: path.join(__dirname, '../dist/renderer')
+    path: path.join(__dirname, '../dist/renderer/'),
   },
   resolve: {
     alias: {
-      '@': path.join(__dirname, '../src/renderer'),
+      '@': path.join(__dirname, '../src/renderer/'),
       'vue$': 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
