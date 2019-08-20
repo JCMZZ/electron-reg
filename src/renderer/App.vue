@@ -4,7 +4,7 @@
       <el-aside width="auto" class="aside" v-if="!$route.meta.start">
         <navigation></navigation>
       </el-aside>
-      <el-main :class="{resetSeize: $route.meta.start}">
+      <el-main style="padding:0;">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -34,11 +34,5 @@
   }
   .aside{
     background: #0b71ac;
-  }
-  .resetSeize{
-    padding: 0;
-    background-image: url('/static/img/start.jpg');
-    background-repeat:no-repeat;
-    background-size: 526px 416px;
   }
 </style>

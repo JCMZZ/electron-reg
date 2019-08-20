@@ -18,6 +18,12 @@ export default new Router({
       meta: {start: true}
     },
     {
+      path: '/login',
+      name: 'login',
+      component: require('@/pages/login/login').default,
+      meta: {start: true}
+    },
+    {
       path: '*',
       redirect: '/'
     }

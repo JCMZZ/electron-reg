@@ -1,5 +1,6 @@
 import {
   app,
+  ipcMain,
   BrowserWindow
 } from 'electron'
 import StartWindow from './startup'
@@ -21,12 +22,15 @@ class MainWindow {
   }
   inIt() {
     this.eventInit();
+    this.initIpcMain();
   }
   createWindow() {
     this.mainWindow = new BrowserWindow({
       height: 563,
+      show: false,
       useContentSize: true,
-      width: 1000
+      width: 1000,
+      backgroundColor: '#101B2D'
     })
     this.mainWindow.loadURL(winURL)
     this.mainWindow.on('closed', () => {
@@ -37,10 +41,16 @@ class MainWindow {
     this.startWindow = new StartWindow();
     this.startWindow.show();
   }
+  show() {
+    this.mainWindow.show()
+  }
+  hide() {
+    this.mainWindow.hide()
+  }
   eventInit() {
     app.on('ready', () => {
       this.createStartWindow();
-      // this.createWindow();
+      this.createWindow();
     })
     app.on('window-all-closed', () => {
       if (process.platform !== 'darwin') {
@@ -52,6 +62,12 @@ class MainWindow {
         createWindow()
       }
     })
+  }
+  initIpcMain() {
+    ipcMain.on('router-index', () => {
+      this.startWindow.hide();
+      this.mainWindow.show();
+    });
   }
 }
 new MainWindow().inIt();

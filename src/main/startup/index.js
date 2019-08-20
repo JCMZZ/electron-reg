@@ -13,9 +13,9 @@ class StartWindow {
         this.mainWindow = new BrowserWindow({
             useContentSize: true,
             resizable: false,
-            // frame: false,
+            frame: false,
             /* 透明窗体 */
-            // transparent: true,   
+            // transparent: true,
             height: 415,
             width: 526
         });
