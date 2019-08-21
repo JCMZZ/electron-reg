@@ -68,6 +68,15 @@ class MainWindow {
       this.startWindow.hide();
       this.mainWindow.show();
     });
+    ipcMain.on('router-startup', () => {
+      this.mainWindow.hide();
+      this.mainWindow.loadURL(winURL + '/startup')
+      this.startWindow.show();
+    });
+    ipcMain.on('router-login', () => {
+      this.mainWindow.hide();
+      this.startWindow.show();
+    });
   }
 }
 new MainWindow().inIt();

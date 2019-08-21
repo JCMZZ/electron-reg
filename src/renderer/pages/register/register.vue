@@ -19,8 +19,16 @@
                     @focus="focusClass = 'password'"
                     @blur="focusClass = ''"></el-input>
             </el-form-item>
+            <el-form-item label="Verify Password" 
+                :class="focusClass === 'pwdAgain'?'focusClass':''"
+                prop="pwdAgain">
+                <el-input type="password" v-model="loginData.pwdAgain" 
+                    placeholder="Please enter your password again"
+                    @focus="focusClass = 'pwdAgain'"
+                    @blur="focusClass = ''"></el-input>
+            </el-form-item>
             <el-form-item size="large" style="float: right; margin: 0;">
-                <reg-button content="Login" :event="onSubmit.bind(this)"></reg-button>
+                <reg-button content="Register" :event="onSubmit.bind(this)"></reg-button>
                 <reg-button style="margin-left: 20px;" content="Back" 
                     @click.native="$router.push('/startup')" ></reg-button>
             </el-form-item>
@@ -30,7 +38,7 @@
 <script>
 import regButton from '../../components/reg-button'
 export default {
-    name: 'reg-login',
+    name: 'reg-register',
     components: {
         regButton
     },
@@ -39,7 +47,8 @@ export default {
             focusClass: '',
             loginData:{
                 account: '',
-                pwd: ''
+                pwd: '',
+                pwdAgain: ''
             },
             rules: {
                 account: [
@@ -48,6 +57,10 @@ export default {
                 ],
                 pwd: [
                     { required: true, message: 'Please enter your password', trigger: 'blur' },
+                    { min: 8, max: 16, message: 'The length is between 8 and 16 characters', trigger: 'blur' }
+                ],
+                pwdAgain: [
+                    { required: true, message: 'Please enter your password again', trigger: 'blur' },
                     { min: 8, max: 16, message: 'The length is between 8 and 16 characters', trigger: 'blur' }
                 ]
             }
@@ -87,6 +100,7 @@ export default {
         width: 70%;
         background: rgba(12, 12, 12, 0.1);
         padding: 20px;
+        margin-top: 40px; 
     }
     /deep/ {
         &.el-form-item{

@@ -24,6 +24,12 @@ export default new Router({
       meta: {start: true}
     },
     {
+      path: '/register',
+      name: 'register',
+      component: require('@/pages/register/register').default,
+      meta: {start: true}
+    },
+    {
       path: '*',
       redirect: '/'
     }

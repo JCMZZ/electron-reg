@@ -5,3 +5,27 @@ html,body {
     height: 100%;
     width: 100%;
 }
+
+button, input{
+    outline: none;
+    border: none;
+}
+
+/* 平移定位居中 */
+.translateC {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+/* 定位居中 */
+.absoluteAfter::after,
+.absoluteBefore::before,
+.absoluteC {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}

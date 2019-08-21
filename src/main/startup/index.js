@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, Menu } from 'electron'
 const winURL = process.env.NODE_ENV === 'development' ?
     `http://localhost:9080` :
     `file://${__dirname}/index.html`;
@@ -10,21 +10,24 @@ class StartWindow {
         this.eventInit();
     }
     createWindow() {
+        /* 隐藏菜单栏 */
+        Menu.setApplicationMenu(null);
         this.mainWindow = new BrowserWindow({
             useContentSize: true,
             resizable: false,
-            frame: false,
+            // frame: false,
             /* 透明窗体 */
             // transparent: true,
+            titleBarStyle: 'hidden',
             height: 415,
             width: 526
         });
         this.mainWindow.loadURL(winURL + '/startup')
     }
     eventInit() {
-        this.mainWindow.on('closed', () => {
-            this.mainWindow = null
-        });
+        // this.mainWindow.on('closed', () => {
+        //     this.mainWindow = null
+        // });
     }
     show() {
         this.mainWindow.show()

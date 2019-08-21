@@ -1,5 +1,5 @@
 <template>
-    <button class="reg-btn" @click.self="event">
+    <button class="reg-btn absoluteBefore" @click.self="event">
         {{content}}
     </button>
 </template>
@@ -19,7 +19,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@import '../../assets/css/theme.scss';
+@import '../assets/css/theme.scss';
 .reg-btn{
     width: 140px;
     height: 40px;
@@ -29,8 +29,8 @@ export default {
     background: transparent;
     color: $assist1-color;
     position: relative;
-    letter-spacing: 10px;
-    text-indent: 10px;
+    letter-spacing: 2px;
+    text-indent: 2px;
     text-align: center;
     outline: none;
     font-weight: bold;
@@ -43,13 +43,7 @@ export default {
     box-sizing: border-box;
     content: '';
     border: 1px solid $theme-color;
-    position: absolute;
     width: 130px;
     height: 30px;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
 }
 </style>

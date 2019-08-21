@@ -1,14 +1,15 @@
 <template>
   <div class="bg">
     <div class="start_main">
-      <reg-button content="看看" :event="lookHandler"></reg-button>
-      <reg-button content="登陆" :event="loginHandler"></reg-button>
+      <reg-button content="Tourist" :event="lookHandler"></reg-button>
+      <reg-button content="Login" @click.native="$router.push('/login')"></reg-button>
+      <reg-button content="Register" @click.native="$router.push('/register')"></reg-button>
     </div>
   </div>
 </template>
 
 <script>
-  import regButton from './reg-button'
+  import regButton from '../../components/reg-button'
   export default {
     name: 'startup',
     components: {
@@ -17,9 +18,6 @@
     methods: {
       lookHandler() {
         this.$electron.ipcRenderer.sendSync('router-index');
-      },
-      loginHandler() {
-        this.$router.push('/login');
       }
     }
   }

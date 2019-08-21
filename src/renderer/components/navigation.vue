@@ -49,6 +49,7 @@ export default {
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
+        this.$electron.ipcRenderer.sendSync('router-startup');
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
