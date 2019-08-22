@@ -19,8 +19,6 @@ class MainWindow {
   constructor() {
     this.mainWindow = null;
     this.startWindow = null;
-  }
-  inIt() {
     this.eventInit();
     this.initIpcMain();
   }
@@ -31,10 +29,11 @@ class MainWindow {
       useContentSize: true,
       width: 1000,
       backgroundColor: '#101B2D'
-    })
-    this.mainWindow.loadURL(winURL)
-    this.mainWindow.on('closed', () => {
-      this.mainWindow = null
+    });
+    this.mainWindow.loadURL(winURL);
+    this.mainWindow.on('hide', ()=>{
+      this.mainWindow.close();
+      this.mainWindow = null;
     })
   }
   createStartWindow() {
@@ -42,10 +41,13 @@ class MainWindow {
     this.startWindow.show();
   }
   show() {
-    this.mainWindow.show()
+    if(this.mainWindow === null) {
+      this.createWindow();
+    }
+    this.mainWindow.show();
   }
   hide() {
-    this.mainWindow.hide()
+    this.mainWindow.hide();
   }
   eventInit() {
     app.on('ready', () => {
@@ -54,32 +56,27 @@ class MainWindow {
     })
     app.on('window-all-closed', () => {
       if (process.platform !== 'darwin') {
-        app.quit()
+        app.quit();
       }
     })
     app.on('activate', () => {
-      if (mainWindow === null) {
-        createWindow()
+      if (this.mainWindow === null) {
+        this.createWindow();
       }
     })
   }
   initIpcMain() {
     ipcMain.on('router-index', () => {
       this.startWindow.hide();
-      this.mainWindow.show();
+      this.show();
     });
     ipcMain.on('router-startup', () => {
-      this.mainWindow.hide();
-      this.mainWindow.loadURL(winURL + '/startup')
-      this.startWindow.show();
-    });
-    ipcMain.on('router-login', () => {
-      this.mainWindow.hide();
+      this.hide();
       this.startWindow.show();
     });
   }
 }
-new MainWindow().inIt();
+new MainWindow();
 /**
  * Auto Updater
  *

@@ -28,6 +28,7 @@
     </div>
 </template>
 <script>
+import api from '@api'
 import regButton from '../../components/reg-button'
 export default {
     name: 'reg-login',
@@ -56,11 +57,14 @@ export default {
     methods: {
         onSubmit() {
             this.$refs['loginForm'].validate()
-                .then((res)=>{
-                    console.log(res)
-                })
-                .catch(err=>{
-                    console.log(err);
+                .then(res=>{
+                    api.login({})
+                        .then(res=>{
+                            console.log('res',res)
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
                 })
         }
     }

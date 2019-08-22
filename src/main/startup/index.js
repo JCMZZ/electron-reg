@@ -5,16 +5,16 @@ const winURL = process.env.NODE_ENV === 'development' ?
 
 class StartWindow {
     constructor() {
-        this.mainWindow = null;
+        this.startWindow = null;
         this.createWindow();
-        this.eventInit();
     }
     createWindow() {
         /* 隐藏菜单栏 */
         Menu.setApplicationMenu(null);
-        this.mainWindow = new BrowserWindow({
+        this.startWindow = new BrowserWindow({
             useContentSize: true,
             resizable: false,
+            // show: false,
             // frame: false,
             /* 透明窗体 */
             // transparent: true,
@@ -22,18 +22,23 @@ class StartWindow {
             height: 415,
             width: 526
         });
-        this.mainWindow.loadURL(winURL + '/startup')
+        this.startWindow.loadURL(winURL + '/startup');
+        this.startWindow.on('hide',()=>{
+            this.startWindow.close();
+            this.startWindow = null;
+        })
     }
-    eventInit() {
-        // this.mainWindow.on('closed', () => {
-        //     this.mainWindow = null
-        // });
+    loadURL(url) {
+        this.startWindow.loadURL(url);
     }
     show() {
-        this.mainWindow.show()
+        if(this.startWindow === null){
+            this.createWindow();
+        }
+        this.startWindow.show();
     }
     hide() {
-        this.mainWindow.hide()
+        this.startWindow.hide();
     }
 }
 export default StartWindow
