@@ -20,7 +20,8 @@ class StartWindow {
             // transparent: true,
             titleBarStyle: 'hidden',
             height: 415,
-            width: 526
+            width: 526,
+            backgroundColor: '#101B2D'
         });
         this.startWindow.loadURL(winURL + '/startup');
         this.startWindow.on('hide',()=>{
