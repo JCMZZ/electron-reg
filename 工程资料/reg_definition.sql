@@ -6,7 +6,7 @@ CREATE TABLE reg_user (
     user_id INT(11) AUTO_INCREMENT COMMENT '用户唯一id',
     nickname VARCHAR(64) NOT NULL DEFAULT '小R' COMMENT '用户昵称',
     email VARCHAR(255) NOT NULL UNIQUE COMMENT '用户邮箱',
-    pwd varchar(32) not null comment '用户密码',
+    pwd VARCHAR(32) NOT NULL COMMENT '用户密码',
     motto VARCHAR(255) COMMENT '座右铭',
     head_portrait VARCHAR(255) COMMENT '头像路径',
     birthday DATE COMMENT '生辰日期',
@@ -14,6 +14,7 @@ CREATE TABLE reg_user (
     academy VARCHAR(124) COMMENT '毕业院校',
     user_desc VARCHAR(255) COMMENT '个人描述',
     state ENUM('1', '2') DEFAULT 1 NOT NULL COMMENT '用户状态：1 活跃，2 注销',
+    create_time timestamp not null default now(),
     PRIMARY KEY (user_id)
 );
 -- 用户标签
@@ -40,6 +41,7 @@ create table reg_user_label (
 drop table if exists reg_navigation;
 CREATE TABLE reg_navigation (
     nav_id INT(11) AUTO_INCREMENT COMMENT '导航id',
+    nav_code char(4) NOT NULL UNIQUE COMMENT '导航code',
     nav_name VARCHAR(64) NOT NULL UNIQUE COMMENT '导航名称',
     PRIMARY KEY (nav_id)
 );
@@ -47,17 +49,19 @@ CREATE TABLE reg_navigation (
 drop table if exists reg_page;
 CREATE TABLE reg_page (
     page_id INT(11) AUTO_INCREMENT COMMENT '页面id',
+    page_code CHAR(4) NOT NULL UNIQUE COMMENT '页面code',
     title VARCHAR(24) NOT NULL UNIQUE COMMENT '页面名称',
     page_router VARCHAR(255) NOT NULL COMMENT '页面路由',
-    nav_id INT(11) NOT NULL COMMENT '导航外键',
+    nav_code CHAR(4) NOT NULL COMMENT '导航外键',
     PRIMARY KEY (page_id),
-    FOREIGN KEY (nav_id)
-        REFERENCES reg_navigation (nav_id)
+    FOREIGN KEY (nav_code)
+        REFERENCES reg_navigation (nav_code)
 );
 -- 操作表
 drop table if exists reg_oper;
 CREATE TABLE reg_oper (
     oper_id INT(11) AUTO_INCREMENT COMMENT '操作id',
+    oper_code CHAR(4) NOT NULL UNIQUE COMMENT '操作code',
     oper_name VARCHAR(64) NOT NULL UNIQUE COMMENT '操作类型：1 增；2 删；3 改；4 查',
     PRIMARY KEY (oper_id)
 );
@@ -65,13 +69,13 @@ CREATE TABLE reg_oper (
 drop table if exists reg_page_oper;
 CREATE TABLE reg_page_oper (
     page_oper_id INT(11) AUTO_INCREMENT COMMENT '关联id',
-    page_id INT(11) NOT NULL COMMENT '页面外键',
-    oper_id INT(11) NOT NULL COMMENT '操作外键',
+    page_code CHAR(4) NOT NULL COMMENT '页面外键',
+    oper_code CHAR(4) NOT NULL COMMENT '操作外键',
     PRIMARY KEY (page_oper_id),
-    FOREIGN KEY (page_id)
-        REFERENCES reg_page (page_id),
-    FOREIGN KEY (oper_id)
-        REFERENCES reg_oper (oper_id)
+    FOREIGN KEY (page_code)
+        REFERENCES reg_page (page_code),
+    FOREIGN KEY (oper_code)
+        REFERENCES reg_oper (oper_code)
 );
 -- 角色表
 drop table if exists reg_role;
@@ -81,16 +85,16 @@ CREATE TABLE reg_role (
     PRIMARY KEY (role_id)
 );
 -- 角色与权限关联表
-drop table if exists reg_user_auth;
-create table reg_user_auth (
-	user_auth_id int(11) auto_increment comment '关联id',
-    auth_id int(11) not null comment '页面，页面与操作外键',
-    role_id int(11) not null comment '用户外键',
-    auth_type enum('1', '2') comment '权限类型：1 页面；2 操作',
-    primary key (user_auth_id),
-    foreign key (auth_id) references reg_page(page_id),
-    foreign key (auth_id) references reg_page_oper(page_oper_id),
-    foreign key (role_id) references reg_role(role_id)
+drop table if exists reg_role_auth;
+CREATE TABLE reg_role_auth (
+    role_auth_id INT(11) AUTO_INCREMENT COMMENT '关联id',
+    auth_id INT(11) NOT NULL COMMENT '页面与操作外键',
+    role_id INT(11) NOT NULL COMMENT '角色外键',
+    PRIMARY KEY (role_auth_id),
+    FOREIGN KEY (auth_id)
+        REFERENCES reg_page_oper (page_oper_id),
+    FOREIGN KEY (role_id)
+        REFERENCES reg_role (role_id)
 );
 -- 角色与用户关联表
 drop table if exists reg_user_role;
@@ -120,7 +124,10 @@ drop table if exists reg_tag;
 CREATE TABLE reg_tag (
     tag_id INT(11) AUTO_INCREMENT COMMENT '标签id',
     tag_name VARCHAR(64) NOT NULL UNIQUE COMMENT '标签名称',
-    PRIMARY KEY (tag_id)
+    user_id INT(11) NOT NULL COMMENT '用户外键',
+    PRIMARY KEY (tag_id),
+    FOREIGN KEY (user_id)
+        REFERENCES reg_user (user_id)
 );
 -- reg数据与标签关联表
 drop table if exists reg_regexp_tag;
