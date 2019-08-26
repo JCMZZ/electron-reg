@@ -8,7 +8,7 @@ CREATE TABLE reg_user (
     email VARCHAR(255) NOT NULL UNIQUE COMMENT '用户邮箱',
     pwd VARCHAR(32) NOT NULL COMMENT '用户密码',
     motto VARCHAR(255) COMMENT '座右铭',
-    head_portrait VARCHAR(255) COMMENT '头像路径',
+    avatar VARCHAR(255) COMMENT '头像路径',
     birthday DATE COMMENT '生辰日期',
     working_unit VARCHAR(124) COMMENT '在职单位',
     academy VARCHAR(124) COMMENT '毕业院校',
@@ -17,6 +17,8 @@ CREATE TABLE reg_user (
     create_time timestamp not null default now(),
     PRIMARY KEY (user_id)
 );
+alter table reg_user add column avatar VARCHAR(255) COMMENT '头像路径' after motto;
+desc reg_user;
 -- 用户标签
 drop table if exists reg_label;
 CREATE TABLE reg_label (

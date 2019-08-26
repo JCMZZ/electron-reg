@@ -4,30 +4,27 @@
       <img src="/static/img/test.png" alt="">
     </div>
     <el-menu
-      @open="handleOpen"
+      :popper-append-to-body="false"
+      unique-opened
+      router
       :collapse="isCollapse"
-      @close="handleClose"
       class="el-menu-vertical-demo"
       background-color="#1F2A40"
       active-text-color="#DBC059"
     >
-      <el-submenu index="1">
+      <el-menu-item index="1">
+        <i class="el-icon-menu"></i>
+        <span slot="title">RegExp</span>
+      </el-menu-item>
+      <el-submenu index="2">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
         </template>
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-        <el-menu-item index="1-3">选项3</el-menu-item>
+        <el-menu-item index="2-1">选项1</el-menu-item>
+        <el-menu-item index="2-2">选项2</el-menu-item>
+        <el-menu-item index="2-3">选项3</el-menu-item>
       </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -40,13 +37,6 @@ export default {
       };
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log('key, keyPath',key, keyPath);
-        // this.$electron.ipcRenderer.sendSync('router-startup');
-      },
-      handleClose(key, keyPath) {
-        // console.log(key, keyPath);
-      }
     }
 };
 </script>
@@ -83,5 +73,15 @@ export default {
   }
   .navigation>ul:nth-child(2){
     flex-grow: 1;
+  }
+</style>
+<style lang="scss">
+  @import "../assets/css/theme.scss";
+  [id^=el-tooltip-].is-dark {
+    background: $assist2-color;
+    color: $theme-color;
+  }
+  [id^=el-tooltip-].is-dark .popper__arrow::after{
+    border-right-color: $assist2-color;
   }
 </style>

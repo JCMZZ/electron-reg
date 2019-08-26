@@ -20,7 +20,9 @@
           placeholder="Please enter your account"
           @focus="focusClass = 'account'"
           @blur="focusClass = ''"
-        ></el-input>
+        >
+          <i slot="prefix" class="el-input__icon start_email"></i>
+        </el-input>
       </el-form-item>
       <el-form-item label="Password" :class="focusClass === 'password'?'focusClass':''" prop="pwd">
         <el-input
@@ -29,7 +31,9 @@
           placeholder="Please enter your password"
           @focus="focusClass = 'password'"
           @blur="focusClass = ''"
-        ></el-input>
+        >
+          <i slot="prefix" class="el-input__icon start_pwd"></i>
+        </el-input>
       </el-form-item>
       <el-form-item size="large" style="float: right; margin: 0;">
         <reg-button content="Login" :event="onSubmit.bind(this)"></reg-button>
@@ -114,6 +118,7 @@ export default {
   border: none;
   background: $theme-color;
   color: $assist2-color;
+  padding-left: 50px;
 }
 /deep/ .el-input__inner::-webkit-input-placeholder {
   color: $assist2-color;
@@ -139,5 +144,26 @@ export default {
   top: 110%;
   font-size: 14px;
   padding-left: 80px;
+}
+/deep/ .el-input__icon {
+  position: relative;
+  color: $assist1-color;
+  z-index: 1000;
+}
+.start_email {
+  display: inline-block;
+  background-image: url("../../assets/icons/startup_email.svg");
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  background-position: 5px 5px;
+  width: 40px;
+}
+.start_pwd {
+  display: inline-block;
+  background-image: url("../../assets/icons/startup_pwd.svg");
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  background-position: 5px 5px;
+  width: 40px;
 }
 </style>
