@@ -1,61 +1,32 @@
--- 登录页
-	-- 用户信息
-    -- 用户权限
-    -- 页面
-SET @email = 'Reg@reg.cn';
+SET @user_id = 7;
 SET @pwd = md5('666666');
-SELECT 
-    u.user_id,
-    u.nickname,
-    u.academy,
-    u.birthday,
-    u.email,
-    u.head_portrait,
-    u.motto,
-    u.working_unit,
-    u.user_desc,
-    rr.role_name,
-    rr.role_id,
-    rra.auth_id,
-    rpo.page_code,
-    rpo.oper_code,
-    rp.title,
-    rp.page_router,
-    rp.nav_code
+-- 获取用户角色
+select @role_id:=ur.role_id as role_id from reg_user_role ur where ur.user_id = @user_id;
+-- 获取角色信息
+SELECT DISTINCT
+    p.page_id,
+    p.page_code,
+    p.title,
+    p.page_router,
+    n.nav_name,
+    n.nav_code
 FROM
-    reg_user u,
-    reg_user_role ur
+    reg_role_permission rp,
+    reg_page p
         LEFT JOIN
-    reg_role rr ON rr.role_id = ur.role_id
-		left join
-	reg_role_auth rra on rra.role_id = rr.role_id
-		left join 
-	reg_page_oper rpo on rpo.page_oper_id = rra.auth_id
-		left join 
-	reg_page rp on rp.page_code = rpo.page_code
+    reg_navigation n ON n.nav_code = p.nav_code
 WHERE
-    u.user_id = ur.user_id
-        AND email = @email
-        AND pwd = @pwd;
--- 个人信息页
-	SELECT 
-    u.user_id,
-    u.nickname,
-    u.academy,
-    u.birthday,
-    u.email,
-    u.head_portrait,
-    u.motto,
-    u.working_unit,
-    u.user_desc,
-    l.label_id,
-    ll.label_name
+    rp.permission_id = p.page_code
+        AND rp.permission_type = 'page'
+        AND rp.role_id IN (1 , 2);
+SELECT DISTINCT
+    o.oper_id, o.*
 FROM
-    reg_user u,
-    reg_user_label l
-        LEFT JOIN
-    reg_label ll ON ll.label_id = l.label_id
+    reg_role_permission rp,
+    reg_oper o
 WHERE
-    u.user_id = 7 AND u.user_id = l.user_id;
--- 正则列表
-	
+    rp.permission_id = o.oper_code
+        AND rp.permission_type = 'oper'
+        AND rp.role_id IN (1 , 2);
+select * from reg_user;
+

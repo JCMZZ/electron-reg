@@ -22,49 +22,35 @@ insert into reg_user_label (label_id, user_id) values
 (4, 9);
 select * from reg_user_label;
 -- 操作权限
-insert into reg_oper (oper_code, oper_name) value 
-('D001', '删除1'),
-('R001', '查看1'),
-('U001', '更新1'),
-('C001', '添加1');
+insert into reg_oper (oper_code, oper_desc, page_code) value 
+('OPER_ROLE_MODIFY', '角色修改-- ','PAGE_ROLE_MANAGEMENT'),
+('OPER_USER_MANAGEMENT_MODIFY', '用户修改','PAGE_USER_MANAGEMENT'),
+('OPER_ROLE_MANAGEMENT_ADD', '角色添加','PAGE_ROLE_MANAGEMENT');
 select * from reg_oper;
 -- 页面导航
 insert into reg_navigation (nav_code, nav_name) values
-('RN01', '个人中心'),
-('RN02', '应用中心'),
-('RN03', '管理中心');
+('NAV_PERSONAL_CENTER', '个人中心'),
+('NAV_APPLICATION_CENTER', '应用中心'),
+('NAV_MANAGEMENT_CENTER', '管理中心');
 select * from reg_navigation;
 -- 页面建立
 insert into reg_page  (page_code, title, page_router, nav_code) values 
-('RP00', '个人信息', '/personage', 'RN01'),
-('RP01', '修改密码', '/changpwd', 'RN01'),
-('RP02', '评论信息', '/reviewinfo', 'RN01'),
-('RP03', '查询列表', '/queryreg', 'RN02'),
-('RP04', '测试场', '/testreg', 'RN02'),
-('RP05', '建立正则', '/addreg', 'RN02'),
-('RP06', '用户列表', '/userlist', 'RN03');
+('PAGE_ROLE_MANAGEMENT', '角色管理', '/authority/management', 'NAV_MANAGEMENT_CENTER'),
+('PAGE_USER_MANAGEMENT', '用户管理', '/user/management', 'NAV_MANAGEMENT_CENTER');
 select * from reg_page;
--- 页面与操作关联
-insert into reg_page_oper (page_code, oper_code) values
-('RP00', 'R001'),
-('RP00', 'D001'),
-('RP00', 'U001'),
-('RP01', 'R001'),
-('RP02', 'R001'),
-('RP03', 'R001'),
-('RP04', 'R001'),
-('RP05', 'R001'),
-('RP06', 'R001');
-select * from reg_page_oper;
 -- 角色
 insert into reg_role (role_name) values
 ('超级管理员'),( '普客');
 select * from reg_role;
 -- 角色与权限关联
-insert into reg_role_auth (auth_id, role_id) values 
-(1, 1),(2, 1),(3, 1),(4, 1),(5, 1),(6, 1),(7, 1),(8, 1),(9, 1),
-(1, 2),(2, 2),(3, 2),(4, 2);
-select * from reg_role_auth;
+insert into reg_role_permission (role_id, permission_id, permission_type) values 
+(1, 'PAGE_ROLE_MANAGEMENT', 'page'),
+(1, 'OPER_ROLE_MODIFY', 'oper'),
+(1, 'PAGE_USER_MANAGEMENT', 'page'),
+(1, 'OPER_USER_MANAGEMENT_MODIFY', 'oper'),
+(2, 'PAGE_USER_MANAGEMENT', 'page'),
+(2, 'OPER_USER_MANAGEMENT_MODIFY', 'oper');
+select * from reg_role_permission;
 -- 用户与角色
 insert into reg_user_role (role_id, user_id) values 
 (1,7), (2,9);
