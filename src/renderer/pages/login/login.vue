@@ -12,13 +12,13 @@
     >
       <el-form-item
         label="Account"
-        :class="focusClass === 'account'?'focusClass':''"
-        prop="account"
+        :class="focusClass === 'email'?'focusClass':''"
+        prop="email"
       >
         <el-input
-          v-model="loginData.account"
-          placeholder="Please enter your account"
-          @focus="focusClass = 'account'"
+          v-model="loginData.email"
+          placeholder="Please enter your email"
+          @focus="focusClass = 'email'"
           @blur="focusClass = ''"
         >
           <i slot="prefix" class="el-input__icon start_email"></i>
@@ -58,7 +58,7 @@ export default {
     return {
       focusClass: "",
       loginData: {
-        account: "",
+        email: "",
         pwd: ""
       },
       rules: loginRule()
@@ -71,7 +71,9 @@ export default {
         .then(res => {
           this.$api.login({
             success: res => {
-              this.$electron.ipcRenderer.sendSync('router-index');
+              if (res.success) {
+              }
+              // this.$electron.ipcRenderer.sendSync('router-index');
             }
           });
         })

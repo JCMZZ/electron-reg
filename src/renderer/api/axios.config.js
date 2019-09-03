@@ -12,8 +12,10 @@ const optDefault = {
  * 创建axios实例
  */
 let instance = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com/',
-    timeout: 10000
+    baseURL: '/api/',
+    timeout: 10000,
+    xsrfCookieName: 'csrfToken', 
+    xsrfHeaderName: 'csrfToken'
 });
 /**
  * 添加请求拦截器
@@ -35,12 +37,12 @@ instance.interceptors.request.use(config => {
  */
 instance.interceptors.response.use(response => {
     loading.close();
-    return response;
+    return response.data;
 }, error => {
     loading.close();
     return Promise.reject(error);
 });
-export let http = instance
+export let http = instance;
 /**
  * post 请求块
  * @param {String} url 
@@ -52,6 +54,7 @@ export function post(url, opt) {
         success,
         fail
     } = opt ? Object.assign(optDefault, opt) : optDefault;
+    console.log('params', params)
     instance({
             url,
             data: params,

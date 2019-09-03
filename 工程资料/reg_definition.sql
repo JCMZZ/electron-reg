@@ -166,3 +166,16 @@ CREATE TABLE reg_evaluate (
     FOREIGN KEY (user_id)
         REFERENCES reg_user (user_id)
 );
+-- 系统日志
+drop table if exists reg_log;
+CREATE TABLE reg_log (
+    id INT AUTO_INCREMENT COMMENT '日志id',
+    nickname VARCHAR(64) NOT NULL COMMENT '昵称',
+    email VARCHAR(255) NOT NULL COMMENT '邮箱',
+    ip VARCHAR(64) NOT NULL COMMENT 'IP',
+    module VARCHAR(64) NOT NULL COMMENT '所属模块',
+    log_desc VARCHAR(128) NOT NULL COMMENT '操作描述',
+    create_time TIMESTAMP NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (id)
+);
+desc reg_log;

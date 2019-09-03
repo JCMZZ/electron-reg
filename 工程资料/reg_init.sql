@@ -75,5 +75,8 @@ insert into reg_evaluate (evaluate, regexp_id, user_id) values
 ('我感觉数字不错', 1, 7),
 ('WAY不错', 2, 7);
 select * from reg_evaluate;
+-- 系统操作日志
+insert into reg_log (nickname, email, ip, module, log_desc) values
+('小R', 'c@reg.cn', '127.0.0.1', 'login', '登录');
 
 

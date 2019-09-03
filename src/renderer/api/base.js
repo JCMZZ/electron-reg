@@ -7,6 +7,6 @@ export default {
         post('/logout', opt);
     },
     register(opt){
-        post('/register', opt);
+        post('/user/create', opt);
     }
 }

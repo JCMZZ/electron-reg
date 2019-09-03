@@ -12,13 +12,13 @@
     >
       <el-form-item
         label="Account"
-        :class="focusClass === 'account'?'focusClass':''"
-        prop="account"
+        :class="focusClass === 'email'?'focusClass':''"
+        prop="email"
       >
         <el-input
-          v-model="loginData.account"
-          placeholder="Please enter your account"
-          @focus="focusClass = 'account'"
+          v-model="loginData.email"
+          placeholder="Please enter your email"
+          @focus="focusClass = 'email'"
           @blur="focusClass = ''"
         >
           <i slot="prefix" class="el-input__icon start_email"></i>
@@ -73,7 +73,7 @@ export default {
     return {
       focusClass: "",
       loginData: {
-        account: "",
+        email: "",
         pwd: "",
         pwdAgain: ""
       },
@@ -86,8 +86,16 @@ export default {
         .validate()
         .then(res => {
           this.$api.register({
+            params: { 
+              email: this.loginData.email,
+              pwd: this.$md5(this.loginData.pwd)
+            },
             success: res => {
-              this.$router.push('/login');
+              if (res.success) {
+                this.$router.push('/login');
+              } else {
+
+              }
             }
           });
         })

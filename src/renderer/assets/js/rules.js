@@ -22,9 +22,9 @@ export function loginRule() {
         trigger: "blur"
       },
       {
-        min: 8,
+        min: 6,
         max: 16,
-        message: "The length is between 8 and 16 characters",
+        message: "The length is between 6 and 16 characters",
         trigger: "blur"
       }
     ]
@@ -60,9 +60,9 @@ export function registerRule() {
         trigger: "blur"
       },
       {
-        min: 8,
+        min: 6,
         max: 16,
-        message: "The length is between 8 and 16 characters",
+        message: "The length is between 6 and 16 characters",
         trigger: "blur"
       }
     ],

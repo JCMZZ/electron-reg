@@ -69,7 +69,13 @@ function startRenderer () {
             resolve()
           })
         },
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+          '/api': {
+            target: 'http://localhost:8888',
+            pathRewrite: {'^/api' : ''}
+          }
+        }
       }
     )
     server.listen(9080)
