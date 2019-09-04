@@ -3,6 +3,7 @@ import {
   ipcMain,
   BrowserWindow
 } from 'electron'
+import '../renderer/store/index'
 import StartWindow from './startup'
 /**
  * Set `__static` path to static files in production

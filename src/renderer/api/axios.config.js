@@ -54,7 +54,6 @@ export function post(url, opt) {
         success,
         fail
     } = opt ? Object.assign(optDefault, opt) : optDefault;
-    console.log('params', params)
     instance({
             url,
             data: params,

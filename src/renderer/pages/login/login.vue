@@ -49,6 +49,7 @@
 <script>
 import regButton from "@/components/reg-button";
 import { loginRule } from '@/assets/js/rules'
+import Utils from '@/assets/js/utils'
 export default {
   name: "reg-login",
   components: {
@@ -67,17 +68,29 @@ export default {
   methods: {
     onSubmit() {
       this.$refs["loginForm"]
-        .validate()
-        .then(res => {
-          this.$api.login({
-            success: res => {
-              if (res.success) {
+        .validate((check, err)=>{
+          if(check) {
+            this.$api.login({
+              params: { 
+                email: this.loginData.email,
+                pwd: this.$md5(this.loginData.pwd)
+              },
+              success: ({success, result}) => {
+                if (success) {
+                  let {roles, navs, user} = result;
+                  localStorage.setItem('roles', JSON.stringify(roles));
+                  localStorage.setItem('navs', JSON.stringify(navs));
+                  localStorage.setItem('user', JSON.stringify(user));
+                  this.$electron.ipcRenderer.sendSync('router-index');
+                } else {
+                  this.$elmsg.warning(res.message);
+                }
               }
-              // this.$electron.ipcRenderer.sendSync('router-index');
-            }
-          });
+            });
+          } else {
+            this.$elmsg.warning(Utils.rulePassErr(err))
+          }
         })
-        .catch(err => console.log(err));
     }
   }
 };

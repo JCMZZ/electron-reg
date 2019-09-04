@@ -8,4 +8,8 @@ export default class Utils {
             return start;
         },{})
     }
+    static rulePassErr(err) {
+        let key = Object.keys(err)[0];
+        return err[key][0].message;
+    }
 }

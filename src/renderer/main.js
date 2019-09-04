@@ -5,6 +5,7 @@ import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/element-variables.scss'
 import md5 from 'js-md5';
+import DefaultConfig from './assets/js/default.config'
 
 import App from './App'
 import router from './router'
@@ -15,7 +16,9 @@ Vue.api = Vue.prototype.$api = api
 Vue.md5 = Vue.prototype.$md5 = md5;
 Vue.config.productionTip = false
 Vue.config.devtools = false
-Vue.use(ElementUI)
+Vue.use(ElementUI);
+Vue.use(DefaultConfig, [ElementUI]);
+
 /* eslint-disable no-new */
 new Vue({
   components: { App },

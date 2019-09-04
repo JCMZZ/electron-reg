@@ -4,27 +4,26 @@
  */
 export function loginRule() {
   return {
-    account: [{
+    email: [{
         required: true,
-        message: "Please enter your account",
+        message: "Please enter your email address！",
         trigger: "blur"
       },
       {
-        min: 5,
-        max: 40,
-        message: "The length is between 5 and 40 characters",
+        type: 'email',
+        message: "Please enter the correct email address！",
         trigger: "blur"
       }
     ],
     pwd: [{
         required: true,
-        message: "Please enter your password",
+        message: "Please enter your password！",
         trigger: "blur"
       },
       {
         min: 6,
         max: 16,
-        message: "The length is between 6 and 16 characters",
+        message: "The length is between 6 and 16 characters！",
         trigger: "blur"
       }
     ]
@@ -35,40 +34,39 @@ export function loginRule() {
  */
 export function registerRule() {
   let passAgainValidator = (rule, value, callback) => {
-    if (value !== this.loginData.pwd) {
-      callback(new Error("The two passwords do not match"));
+    if (value !== this.registerData.pwd) {
+      callback(new Error("The two passwords do not match！"));
     } else {
       callback();
     }
   };
   return {
-    account: [{
+    email: [{
         required: true,
-        message: "Please enter your account",
+        message: "Please enter your email address！",
         trigger: "blur"
       },
       {
-        min: 5,
-        max: 40,
-        message: "The length is between 5 and 40 characters",
+        type: 'email',
+        message: "Please enter the correct email address！",
         trigger: "blur"
       }
     ],
     pwd: [{
         required: true,
-        message: "Please enter your password",
+        message: "Please enter your password！",
         trigger: "blur"
       },
       {
         min: 6,
         max: 16,
-        message: "The length is between 6 and 16 characters",
+        message: "The length is between 6 and 16 characters！",
         trigger: "blur"
       }
     ],
     pwdAgain: [{
         required: true,
-        message: "Please enter your password again",
+        message: "Please enter your password again！",
         trigger: "blur"
       },
       {

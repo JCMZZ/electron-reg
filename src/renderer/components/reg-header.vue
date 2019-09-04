@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="h_right">
-      <strong>管理员:</strong>
+      <strong>{{viewRole}}:</strong>
       <span>Admin</span>
       <div class="h_oper_box">
         <div class="h_btn"></div>
@@ -14,19 +14,42 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
     name: 'reg-header',
     data() {
       return {
+
       };
     },
+    computed: {
+      viewRole(){
+        console.log('this.$store.getters.viewRole', this.$store.getters.viewRole)
+        return this.$store.getters.viewRole
+      }
+    },
     methods: {
+      ...mapActions(['USER_INFO', 'USER_ROLES', 'USER_NAVS']),
       logoutHandler() {
+        localStorage.clear();
+        this.USER_INFO({});
+        this.USER_ROLES([]);
+        this.USER_NAVS([]);
         // this.$api.logout({
         //   success: res => {
             this.$electron.ipcRenderer.sendSync('router-startup');
         //   }
         // });
+      }
+    },
+    beforeMount() {
+      let user = localStorage.getItem('user');
+      let roles = localStorage.getItem('roles');
+      let navs = localStorage.getItem('navs');
+      if(user && roles && navs){
+        this.USER_INFO(JSON.parse(user));
+        this.USER_ROLES(JSON.parse(roles));
+        this.USER_NAVS(JSON.parse(navs));
       }
     }
 };

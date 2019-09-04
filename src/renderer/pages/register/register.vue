@@ -7,7 +7,7 @@
       :rules="rules"
       ref="registerForm"
       label-width="80px"
-      :model="loginData"
+      :model="registerData"
       class="login-form"
     >
       <el-form-item
@@ -16,7 +16,7 @@
         prop="email"
       >
         <el-input
-          v-model="loginData.email"
+          v-model="registerData.email"
           placeholder="Please enter your email"
           @focus="focusClass = 'email'"
           @blur="focusClass = ''"
@@ -24,10 +24,10 @@
           <i slot="prefix" class="el-input__icon start_email"></i>
         </el-input>
       </el-form-item>
-      <el-form-item label="Password" :class="focusClass === 'password'?'focusClass':''" prop="pwd">
+      <el-form-item label="Password" :class="focusClass === 'password'?'focusClass':''" prop="password">
         <el-input
           type="password"
-          v-model="loginData.pwd"
+          v-model="registerData.pwd"
           placeholder="Please enter your password"
           @focus="focusClass = 'password'"
           @blur="focusClass = ''"
@@ -42,7 +42,7 @@
       >
         <el-input
           type="password"
-          v-model="loginData.pwdAgain"
+          v-model="registerData.pwdAgain"
           placeholder="Please enter your password again"
           @focus="focusClass = 'pwdAgain'"
           @blur="focusClass = ''"
@@ -64,6 +64,7 @@
 <script>
 import regButton from "@/components/reg-button";
 import { registerRule } from "@/assets/js/rules";
+import Utils from '@/assets/js/utils'
 export default {
   name: "reg-register",
   components: {
@@ -72,7 +73,7 @@ export default {
   data() {
     return {
       focusClass: "",
-      loginData: {
+      registerData: {
         email: "",
         pwd: "",
         pwdAgain: ""
@@ -83,23 +84,25 @@ export default {
   methods: {
     onSubmit() {
       this.$refs["registerForm"]
-        .validate()
-        .then(res => {
-          this.$api.register({
-            params: { 
-              email: this.loginData.email,
-              pwd: this.$md5(this.loginData.pwd)
-            },
-            success: res => {
-              if (res.success) {
-                this.$router.push('/login');
-              } else {
-
+        .validate((check, err)=>{
+          if(check) {
+            this.$api.register({
+              params: { 
+                email: this.registerData.email,
+                pwd: this.$md5(this.registerData.pwd)
+              },
+              success: res => {
+                if (res.success) {
+                  this.$router.push('/login');
+                } else {
+                  this.$elmsg.warning(res.message);
+                }
               }
-            }
-          });
+            });
+          } else {
+            this.$elmsg.warning(Utils.rulePassErr(err))
+          }
         })
-        .catch(err => console.log(err))
     }
   }
 };
