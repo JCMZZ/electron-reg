@@ -29,7 +29,8 @@
     },
     mounted(){
       // console.log(this.$route)
-    }
+      document.onselectstart = () => false;
+    },
   }
 </script>
 

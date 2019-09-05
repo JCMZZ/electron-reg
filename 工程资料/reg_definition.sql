@@ -46,6 +46,7 @@ drop table if exists reg_navigation;
 CREATE TABLE reg_navigation (
     nav_id INT(11) AUTO_INCREMENT COMMENT '导航id',
     nav_code VARCHAR(64) NOT NULL UNIQUE COMMENT '导航code',
+    nav_icon VARCHAR(64) NOT NULL COMMENT '导航ICON',
     nav_name VARCHAR(64) NOT NULL UNIQUE COMMENT '导航名称',
     PRIMARY KEY (nav_id)
 );
@@ -56,6 +57,7 @@ CREATE TABLE reg_page (
     page_code VARCHAR(64) NOT NULL UNIQUE COMMENT '页面code',
     title VARCHAR(24) NOT NULL UNIQUE COMMENT '页面名称',
     page_router VARCHAR(255) NOT NULL COMMENT '页面路由',
+    page_icon VARCHAR(64) NOT NULL COMMENT '导航ICON',
     nav_code VARCHAR(64) NOT NULL COMMENT '导航外键',
     PRIMARY KEY (page_id),
     FOREIGN KEY (nav_code)

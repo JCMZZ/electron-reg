@@ -29,3 +29,11 @@ button, input{
     top: 0;
     margin: auto;
 }
+/* 拖拽 */
+.drag{
+    -webkit-app-region: drag;
+}
+/* 不可拖拽 */
+.no-drag{
+    -webkit-app-region: no-drag
+}

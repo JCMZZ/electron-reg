@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img src="/static/img/logow.png" class="login_logo" />
+    <img src="/static/img/logow.png" class="login_logo drag" />
     <el-form
       label-position="top"
       @submit.native.prevent

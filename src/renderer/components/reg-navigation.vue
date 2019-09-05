@@ -6,29 +6,36 @@
     <el-menu
       :popper-append-to-body="false"
       unique-opened
+      default-active="/particulars" 
       router
       :collapse="isCollapse"
       class="el-menu-vertical-demo"
       background-color="#1F2A40"
       active-text-color="#DBC059"
-    >
-      <el-menu-item index="1">
+    > 
+      <el-menu-item index="/particulars">
         <i class="el-icon-menu"></i>
-        <span slot="title">RegExp</span>
+        <span slot="title" :class="{navActive: $route.path === '/particulars'}">首页</span>
       </el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item index="2-1">选项1</el-menu-item>
-        <el-menu-item index="2-2">选项2</el-menu-item>
-        <el-menu-item index="2-3">选项3</el-menu-item>
-      </el-submenu>
+      <template v-for="(nav, index) in navs">
+          <el-submenu :index="nav.nav_code" :key="index">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span slot="title">{{nav.nav_name}}</span>
+            </template>
+            <el-menu-item v-for="page in nav.pages" 
+              :key="page.page_code" :index="page.page_router"
+              >
+              <i class="el-icon-location"></i>
+              {{page.title}}
+            </el-menu-item>
+          </el-submenu>
+      </template>
     </el-menu>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'reg-navigation',
     data() {
@@ -36,7 +43,10 @@ export default {
         isCollapse: true
       };
     },
-    methods: {
+    computed: {
+      ...mapGetters({
+        navs: 'navs'
+      })
     }
 };
 </script>
@@ -73,6 +83,9 @@ export default {
   }
   .navigation>ul:nth-child(2){
     flex-grow: 1;
+  }
+  .navActive{
+    color: $assist1-color;
   }
 </style>
 <style lang="scss">

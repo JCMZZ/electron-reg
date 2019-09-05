@@ -21,8 +21,12 @@ class StartWindow {
             titleBarStyle: 'hidden',
             height: 415,
             width: 526,
-            backgroundColor: '#101B2D'
+            backgroundColor: '#101B2D',
+            webPreferences: {
+                devTools: true
+            }
         });
+        this.startWindow.webContents.openDevTools({mode:'bottom'});
         this.startWindow.loadURL(winURL + '/startup');
         this.startWindow.on('hide',()=>{
             this.startWindow.close();

@@ -1,9 +1,9 @@
 <template>
-  <div class="bg">
+  <div class="bg drag">
     <div class="start_main">
-      <reg-button content="Tourist" :event="lookHandler"></reg-button>
-      <reg-button content="Login" @click.native="$router.push('/login')"></reg-button>
-      <reg-button content="Register" @click.native="$router.push('/register')"></reg-button>
+      <reg-button class="no-drag" content="Tourist" :event="lookHandler"></reg-button>
+      <reg-button class="no-drag" content="Login" @click.native="$router.push('/login')"></reg-button>
+      <reg-button class="no-drag" content="Register" @click.native="$router.push('/register')"></reg-button>
     </div>
   </div>
 </template>
@@ -17,7 +17,8 @@
     },
     methods: {
       lookHandler() {
-        this.$electron.ipcRenderer.sendSync('router-index');
+        this.$electron.ipcRenderer.send('router-index');
+        this.$router.push('/');
       }
     }
   }

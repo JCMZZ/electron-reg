@@ -5,29 +5,29 @@ const state = {
   navs: []
 }
 const mutations = {
-  USER_INFO (state, user) {
+  USER_INFO(state, user) {
     state.user = user;
   },
-  USER_ROLES (state, roles) {
+  USER_ROLES(state, roles) {
     state.roles = roles;
   },
-  USER_NAVS (state, navs) {
+  USER_NAVS(state, navs) {
     state.navs = navs;
   }
 }
 const getters = {
-  viewRole: state=>{
-    return state.roles.map(val=>val.role_name).join('/');
-  }
+  viewRole: state => state.roles.map(val => val.role_name).join('/'),
+  nickname: state => state.user.nickname,
+  navs: state => state.navs
 }
 const actions = {
-  USER_INFO ({ commit }, user) {
+  USER_INFO({ commit }, user) {
     commit('USER_INFO', user)
   },
-  USER_ROLES ({ commit }, roles) {
+  USER_ROLES({ commit }, roles) {
     commit('USER_ROLES', roles)
   },
-  USER_NAVS ({ commit }, navs) {
+  USER_NAVS({ commit }, navs) {
     commit('USER_NAVS', navs)
   }
 }

@@ -28,13 +28,13 @@ insert into reg_oper (oper_code, oper_desc, page_code) value
 ('OPER_ROLE_MANAGEMENT_ADD', '角色添加','PAGE_ROLE_MANAGEMENT');
 select * from reg_oper;
 -- 页面导航
-insert into reg_navigation (nav_code, nav_name) values
+insert into reg_navigation (nav_code, nav_icon, nav_name) values
 ('NAV_PERSONAL_CENTER', '个人中心'),
 ('NAV_APPLICATION_CENTER', '应用中心'),
 ('NAV_MANAGEMENT_CENTER', '管理中心');
 select * from reg_navigation;
 -- 页面建立
-insert into reg_page  (page_code, title, page_router, nav_code) values 
+insert into reg_page  (page_code, title, page_router, page_icon, nav_code) values 
 ('PAGE_ROLE_MANAGEMENT', '角色管理', '/authority/management', 'NAV_MANAGEMENT_CENTER'),
 ('PAGE_USER_MANAGEMENT', '用户管理', '/user/management', 'NAV_MANAGEMENT_CENTER');
 select * from reg_page;

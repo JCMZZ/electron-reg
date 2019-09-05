@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img src="/static/img/logow.png" class="login_logo" />
+    <img src="/static/img/logow.png" class="login_logo drag" />
     <el-form
       label-position="top"
       @submit.native.prevent
@@ -47,6 +47,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import regButton from "@/components/reg-button";
 import { loginRule } from '@/assets/js/rules'
 import Utils from '@/assets/js/utils'
@@ -66,6 +67,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['USER_INFO', 'USER_ROLES', 'USER_NAVS']),
     onSubmit() {
       this.$refs["loginForm"]
         .validate((check, err)=>{
@@ -81,7 +83,11 @@ export default {
                   localStorage.setItem('roles', JSON.stringify(roles));
                   localStorage.setItem('navs', JSON.stringify(navs));
                   localStorage.setItem('user', JSON.stringify(user));
-                  this.$electron.ipcRenderer.sendSync('router-index');
+                  this.USER_INFO(user);
+                  this.USER_ROLES(roles);
+                  this.USER_NAVS(navs);
+                  this.$electron.ipcRenderer.send('router-index');
+                  this.$router.replace('/');
                 } else {
                   this.$elmsg.warning(res.message);
                 }
