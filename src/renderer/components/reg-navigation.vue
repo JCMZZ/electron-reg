@@ -1,7 +1,7 @@
 <template>
   <div class="navigation">
     <div class="logo" @click="isCollapse=!isCollapse">
-      <img src="/static/img/test.png" alt="">
+      <img src="/static/img/nav_logo.png" alt="">
     </div>
     <el-menu
       :popper-append-to-body="false"

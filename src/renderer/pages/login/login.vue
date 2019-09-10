@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img src="/static/img/logow.png" class="login_logo drag" />
+    <img src="/static/img/logo.png" class="login_logo drag" />
     <el-form
       label-position="top"
       @submit.native.prevent
@@ -77,7 +77,7 @@ export default {
                 email: this.loginData.email,
                 pwd: this.$md5(this.loginData.pwd)
               },
-              success: ({success, result}) => {
+              success: ({success, result, message}) => {
                 if (success) {
                   let {roles, navs, user} = result;
                   localStorage.setItem('roles', JSON.stringify(roles));
@@ -89,7 +89,7 @@ export default {
                   this.$electron.ipcRenderer.send('router-index');
                   this.$router.replace('/');
                 } else {
-                  this.$elmsg.warning(res.message);
+                  this.$elmsg.warning(message);
                 }
               }
             });

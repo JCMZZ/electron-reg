@@ -15,7 +15,7 @@ let instance = axios.create({
     baseURL: '/api/',
     timeout: 10000,
     xsrfCookieName: 'csrfToken', 
-    xsrfHeaderName: 'csrfToken'
+    xsrfHeaderName: 'x-csrf-token'
 });
 /**
  * 添加请求拦截器

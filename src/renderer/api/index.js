@@ -1,2 +1,3 @@
 import base from './base'
-export default Object.assign({}, base);
+import user from './user'
+export default Object.assign({}, base, user);

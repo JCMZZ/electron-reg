@@ -18,7 +18,8 @@ const mutations = {
 const getters = {
   viewRole: state => state.roles.map(val => val.role_name).join('/'),
   nickname: state => state.user.nickname,
-  navs: state => state.navs
+  navs: state => state.navs,
+  userId: state => state.user.user_id
 }
 const actions = {
   USER_INFO({ commit }, user) {
