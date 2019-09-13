@@ -6,16 +6,16 @@
     <el-menu
       :popper-append-to-body="false"
       unique-opened
-      default-active="/particulars" 
+      default-active="/personage/info" 
       router
       :collapse="isCollapse"
       class="el-menu-vertical-demo"
       background-color="#1F2A40"
       active-text-color="#DBC059"
     > 
-      <el-menu-item index="/particulars">
+      <el-menu-item index="/personage/info">
         <i class="el-icon-menu"></i>
-        <span slot="title" :class="{navActive: $route.path === '/particulars'}">首页</span>
+        <span slot="title" :class="{navActive: $route.path === '/personage/info'}">首页</span>
       </el-menu-item>
       <template v-for="(nav, index) in navs">
           <el-submenu :index="nav.nav_code" :key="index">
@@ -23,12 +23,14 @@
               <i class="el-icon-location"></i>
               <span slot="title">{{nav.nav_name}}</span>
             </template>
-            <el-menu-item v-for="page in nav.pages" 
-              :key="page.page_code" :index="page.page_router"
-              >
-              <i class="el-icon-location"></i>
-              {{page.title}}
-            </el-menu-item>
+            <template v-for="page in nav.pages">
+              <el-menu-item  v-if="page.page_level === '1'"
+                :key="page.page_code" :index="page.page_router"
+                >
+                <i class="el-icon-location"></i>
+                {{page.title}}
+              </el-menu-item>
+            </template>
           </el-submenu>
       </template>
     </el-menu>

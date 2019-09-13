@@ -31,6 +31,9 @@
       // console.log(this.$route)
       document.onselectstart = () => false;
     },
+    created() {
+      this.$api.csrfToken();
+    }
   }
 </script>
 

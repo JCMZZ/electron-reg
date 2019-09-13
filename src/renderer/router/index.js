@@ -12,13 +12,9 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/index',
-      name: 'home-page',
+      path: '/home',
+      name: 'home',
       component: require('@/pages/home/home').default
-    },
-    {
-      path: '/',
-      redirect: '/index'
     },
     {
       path: '/startup',
@@ -39,13 +35,17 @@ export default new Router({
       meta: {start: true}
     },
     {
-      path: '/particulars',
+      path: '/personage/info',
       name: 'particulars',
       component: require('@/pages/user/particulars').default
     },
     {
+      path: '/',
+      redirect: '/home'
+    },
+    {
       path: '*',
-      redirect: '/'
+      redirect: '/home'
     }
   ]
 })

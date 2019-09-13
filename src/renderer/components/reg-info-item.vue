@@ -14,7 +14,7 @@ export default {
         },
         content: {
             type: String,
-            default: 'REG-CONTENT'
+            default: ''
         }
     }
 }

@@ -9,11 +9,18 @@
             <reg-info-item label="邮箱" :content="userInfo.email"></reg-info-item>
             <reg-info-item label="毕业院校" :content="userInfo.academy"></reg-info-item>
             <reg-info-item label="工作单位" :content="userInfo.working_unit"></reg-info-item>
-            <!-- <reg-info-item label="一句话" :content="userInfo.motto"></reg-info-item> -->
         </div>
         <div class="particulars_line"></div>
         <div class="particulars_desc">
-            
+            <reg-info-item label="一句话" :content="motto.substr(0,12)"></reg-info-item>
+            <div class="info_item">{{motto.substr(12)}}</div>
+            <reg-info-item label="个人描述" :content="user_desc.substr(0,12)"></reg-info-item>
+            <div class="info_item">{{user_desc.substr(12, 22)}}</div>
+            <div class="info_item">{{user_desc.substr(34)}}</div>
+            <div class="user_label"><span>个人标签</span></div>
+            <div class="user_label_tag">
+                <el-tag class="eltag" v-for="val in userLabel" :key="val.label_id">{{val.label_name}}</el-tag>
+            </div>
         </div>
     </div>
 </template>
@@ -24,7 +31,8 @@ export default {
     name: 'particulars',
     data() {
         return {
-            userInfo: {}
+            userInfo: {},
+            userLabel: []
         }
     },
     components: {
@@ -33,7 +41,13 @@ export default {
     computed: {
         ...mapGetters({
             userId: 'userId'
-        })
+        }),
+        motto() {
+            return this.userInfo.motto || '';
+        },
+        user_desc() {
+            return this.userInfo.user_desc || '';
+        }
     },
     created() {
         this.getUserInfo();
@@ -46,7 +60,8 @@ export default {
               },
               success: ({success, result, message}) => {
                 if (success) {
-                    this.userInfo = result;
+                    this.userInfo = result.user;
+                    this.userLabel = result.labels;
                 } else {
                   this.$elmsg.warning(message);
                 }
@@ -91,6 +106,35 @@ export default {
         align-items: center;
     }
     .particulars_desc{
-        width: 300px;
+        box-sizing: border-box;
+        width: 500px;
+        padding: 20px;
+        .info_item {
+            width: 90%;
+            height: 29px;
+            border-bottom: 1px solid $theme-color;
+            color: $assist2-color;
+            margin-bottom: 20px;
+        }
+        .user_label {
+            height: 23px;
+            width: 90%;
+            border-bottom: 1px solid $theme-color;
+            text-align: center;
+            span {
+                background: $theme-color;
+                border-radius: 5px 5px 0 0;
+                font-weight: bold;
+                padding: 5px 30px;
+                color: $assist2-color;
+            }
+        }
+        .user_label_tag{
+            height: 120px;
+            .eltag{
+                margin: 2px;
+                background: $theme-color !important;
+            }
+        }
     }
 </style>
