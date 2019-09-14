@@ -58,6 +58,7 @@ CREATE TABLE reg_page (
     title VARCHAR(24) NOT NULL UNIQUE COMMENT '页面名称',
     page_router VARCHAR(255) NOT NULL COMMENT '页面路由',
     page_icon VARCHAR(64) NOT NULL COMMENT '导航ICON',
+    page_level VARCHAR(64) NOT NULL COMMENT '页面层级',
     nav_code VARCHAR(64) NOT NULL COMMENT '导航外键',
     PRIMARY KEY (page_id),
     FOREIGN KEY (nav_code)
